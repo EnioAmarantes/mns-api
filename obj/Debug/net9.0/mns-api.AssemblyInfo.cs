@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("mns-api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a18a68cb4c585155d6c019179353cee242cd159c")]
 [assembly: System.Reflection.AssemblyProductAttribute("mns-api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("mns-api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
