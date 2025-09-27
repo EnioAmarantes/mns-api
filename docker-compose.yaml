@@ -1,0 +1,23 @@
+services:
+  mns-db-dev:
+    image: mariadb:latest
+    container_name: mns-db-dev
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mnsdb
+      MYSQL_USER: mnsuser
+      MYSQL_PASSWORD: mnspassword
+    ports:
+      - "3350:3306"
+    volumes:
+      - mns-db-data:/var/lib/mysql
+    networks:
+      - mns-network
+
+volumes:
+  mns-db-data:
+
+networks:
+  mns-network:
+    driver: bridge
