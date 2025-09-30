@@ -121,7 +121,7 @@ public class ProductController : ControllerBase
         try
         {
             var companyId = GetCompanyIdFromClaims();
-            _productService.Delete(companyId, id);
+            _productService.Delete(id, companyId);
             return NoContent();
         }
         catch (UnauthorizedAccessException ex)
