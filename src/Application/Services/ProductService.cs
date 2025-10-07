@@ -25,7 +25,8 @@ public class ProductService : IProductService
             Name = product.Name,
             Price = product.Price,
             CompanyId = CompanyId,
-            MinStockQuantity = product.MinStockQuantity
+            MinStockQuantity = product.MinStockQuantity,
+            CategoryId = product.CategoryId ?? null
         };
 
         var createdProduct = _productRepository.Create(CompanyId, newProduct);
@@ -37,6 +38,11 @@ public class ProductService : IProductService
             Name = createdProduct.Name,
             Price = createdProduct.Price,
             MinStockQuantity = createdProduct.MinStockQuantity,
+            Category = createdProduct.Category != null ? new CategoryResponse
+            {
+                Id = createdProduct.Category.Id,
+                Name = createdProduct.Category.Name
+            } : null,
             StockBalances = stockBalance.ToList()
         };
     }
@@ -55,6 +61,11 @@ public class ProductService : IProductService
             Name = p.Name,
             Price = p.Price,
             MinStockQuantity = p.MinStockQuantity,
+            Category = p.Category != null ? new CategoryResponse
+            {
+                Id = p.Category.Id,
+                Name = p.Category.Name
+            } : null,
             StockBalances = stockBalances.Where(sb => sb.ProductId == p.Id).ToList()
         });
     }
@@ -70,6 +81,11 @@ public class ProductService : IProductService
             Name = product.Name,
             Price = product.Price,
             MinStockQuantity = product.MinStockQuantity,
+            Category = product.Category != null ? new CategoryResponse
+            {
+                Id = product.Category.Id,
+                Name = product.Category.Name
+            } : null,
             StockBalances = stockBalance.ToList()
         };
     }
@@ -82,7 +98,8 @@ public class ProductService : IProductService
             CompanyId = CompanyId,
             Name = product.Name,
             Price = product.Price,
-            MinStockQuantity = product.MinStockQuantity
+            MinStockQuantity = product.MinStockQuantity,
+            CategoryId = product.CategoryId ?? null
         };
         var updatedProduct = _productRepository.Update(CompanyId, id, productUpdate);
         var stockBalance = _stockBalanceService.GetByProductId(id, CompanyId);
@@ -98,6 +115,11 @@ public class ProductService : IProductService
             Name = updatedProduct.Name,
             Price = updatedProduct.Price,
             MinStockQuantity = updatedProduct.MinStockQuantity,
+            Category = updatedProduct.Category != null ? new CategoryResponse
+            {
+                Id = updatedProduct.Category.Id,
+                Name = updatedProduct.Category.Name
+            } : null,
             StockBalances = stockBalance.ToList()
         };
     }

@@ -18,7 +18,9 @@ public class ProductRepository : IProductRepository
     {
         _context.Products.Add(product);
         _context.SaveChanges();
-        return product;
+
+        var createdProduct = GetById(product.Id, CompanyId);
+        return createdProduct;
     }
 
     public void Delete(Guid id, Guid CompanyId)
@@ -34,6 +36,7 @@ public class ProductRepository : IProductRepository
     public IEnumerable<Product> GetAll(Guid CompanyId)
     {
         return _context.Products
+            .Include(p => p.Category)
             .Where(p => p.CompanyId == CompanyId)
             .AsNoTracking()
             .ToList();
@@ -42,6 +45,7 @@ public class ProductRepository : IProductRepository
     public Product GetById(Guid id, Guid CompanyId)
     {
         return _context.Products
+            .Include(p => p.Category)
             .AsNoTracking()
             .FirstOrDefault(p => p.Id == id && p.CompanyId == CompanyId);
     }
@@ -57,11 +61,13 @@ public class ProductRepository : IProductRepository
                 CompanyId = existingProduct.CompanyId,
                 Name = product.Name,
                 Price = product.Price,
-                MinStockQuantity = product.MinStockQuantity
+                MinStockQuantity = product.MinStockQuantity,
+                CategoryId = product.CategoryId
             };
             _context.Entry(existingProduct).State = EntityState.Detached;
             _context.Products.Update(updatedProduct);
             _context.SaveChanges();
+            updatedProduct = GetById(id, CompanyId);
             return updatedProduct;
         }
         return existingProduct;
